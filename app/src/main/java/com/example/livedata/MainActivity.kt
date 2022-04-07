@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             textView.text = number.toString()
             progressBar.progress = number
         }
+        // راه مختصر برای observe
         vm.message.observe(this) {
             messageView.text = it
         }
