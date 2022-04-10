@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LiveData</string>
+    <string name="check_answer">Check Answer</string>
+    <string name="user_answer">Your Answer</string>
 </resources>

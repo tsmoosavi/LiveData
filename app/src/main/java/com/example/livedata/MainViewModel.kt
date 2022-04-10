@@ -13,18 +13,18 @@ class MainViewModel: ViewModel() {
     val numberLiveData= MutableLiveData<Int>(0)
     var halfQuestionListSize = QuestionRepository.questionList.size/2
 
-    val message :LiveData<String> = Transformations.map(numberLiveData,{
-      when(it){
-          in 0 ..halfQuestionListSize -> "Hurry up"
-          else ->"You almost done"
-          //راه استاد:
+    val message :LiveData<String> = Transformations.map(numberLiveData) {
+        when (it) {
+            in 0..halfQuestionListSize -> "Hurry up"
+            else -> "You almost done"
+            //راه استاد:
 //          number->
 //          if(number<=questionCount/2 )
 //              "go ahead"
 //          else
 //              "you are reaching the end"
-      }
-    })
+        }
+    }
 
     var nextEnabledLiveData = MutableLiveData<Boolean>(true)
 
