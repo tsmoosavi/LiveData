@@ -7,9 +7,10 @@ import androidx.lifecycle.ViewModel
 import com.example.livedata1.QuestionRepository
 
 class MainViewModel: ViewModel() {
-    val questionLiveData = MutableLiveData<String>(QuestionRepository.questionList[0])
+    val questionLiveData = MutableLiveData<String>(QuestionRepository.questionList[0].question)
+    val answerliveData = MutableLiveData<Int>(QuestionRepository.questionList[0].answer)
     val questionCount = QuestionRepository.questionList.size-1
-
+    val scoreLiveData = MutableLiveData<Int>(0)
     val numberLiveData= MutableLiveData<Int>(0)
     var halfQuestionListSize = QuestionRepository.questionList.size/2
 
@@ -19,7 +20,7 @@ class MainViewModel: ViewModel() {
             else -> "You almost done"
             //راه استاد:
 //          number->
-//          if(number<=questionCount/2 )
+//          if(number<=questionCount/2 )321
 //              "go ahead"
 //          else
 //              "you are reaching the end"
@@ -30,7 +31,10 @@ class MainViewModel: ViewModel() {
 
     var backEnabledLiveData = MutableLiveData<Boolean>(false)
 
+    var checkAnswerEnableLiveData = MutableLiveData<Boolean>(true)
+
     fun backClicked(){
+        checkAnswerEnableLiveData.value = true
         nextEnabledLiveData.value =true
 //        if (numberLiveData.value!! > 0){
 //            numberLiveData.value = numberLiveData.value?.minus(1)
@@ -42,7 +46,7 @@ class MainViewModel: ViewModel() {
 //        }
         numberLiveData.value = numberLiveData.value?.minus(1)
         numberLiveData.value?.let{number->
-                questionLiveData.value = QuestionRepository.questionList[number]
+                questionLiveData.value = QuestionRepository.questionList[number].question
             }
 
         if (numberLiveData.value!! == 0) {
@@ -51,6 +55,7 @@ class MainViewModel: ViewModel() {
 
     }
     fun nextClicked(){
+        checkAnswerEnableLiveData.value = true
         backEnabledLiveData.value = true
 //        if (numberLiveData.value!! < questionCount){
 //            numberLiveData.value = numberLiveData.value?.plus(1)
@@ -62,12 +67,22 @@ class MainViewModel: ViewModel() {
 //        }
         numberLiveData.value = numberLiveData.value?.plus(1)
         numberLiveData.value?.let{number->
-                 questionLiveData.value = QuestionRepository.questionList[number]
+                 questionLiveData.value = QuestionRepository.questionList[number].question
              }
          if (numberLiveData.value!! == questionCount) {
              nextEnabledLiveData.value = false
          }
 
 
+    }
+
+    fun checkAnswer(answer:Int) {
+        checkAnswerEnableLiveData.value = false
+        if(answer == QuestionRepository.questionList[numberLiveData.value!!].answer){
+            scoreLiveData.value =   scoreLiveData.value?.plus(5)
+        }
+        else{
+            scoreLiveData.value =   scoreLiveData.value?.minus(2)
+        }
     }
 }
