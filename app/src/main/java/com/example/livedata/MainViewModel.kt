@@ -8,11 +8,17 @@ import com.example.livedata1.QuestionRepository
 
 class MainViewModel: ViewModel() {
     val questionLiveData = MutableLiveData<String>(QuestionRepository.questionList[0].question)
-    val answerliveData = MutableLiveData<Int>(QuestionRepository.questionList[0].answer)
     val questionCount = QuestionRepository.questionList.size-1
     val scoreLiveData = MutableLiveData<Int>(0)
     val numberLiveData= MutableLiveData<Int>(0)
     var halfQuestionListSize = QuestionRepository.questionList.size/2
+    var colorOfScore : LiveData<String> = Transformations.map(scoreLiveData){
+        when(it){
+            in 0 .. 5 -> "red"
+            in 6 .. 10 -> "orange"
+            else -> "green"
+        }
+    }
 
     val message :LiveData<String> = Transformations.map(numberLiveData) {
         when (it) {

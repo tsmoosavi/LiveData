@@ -46,6 +46,13 @@ class MainActivity : AppCompatActivity() {
         vm.message.observe(this) {
             messageView.text = it
         }
+        vm.colorOfScore.observe(this){
+            when(it){
+                "red" -> scoreTxv.setTextColor(getResources().getColor(R.color.red))
+                "orange" ->scoreTxv.setTextColor(getResources().getColor(R.color.orange))
+                else ->scoreTxv.setTextColor(getResources().getColor(R.color.green))
+            }
+        }
         val buttonEnabledObserver = Observer<Boolean> {  enabled->
             buttonNext.isEnabled = enabled
         }
