@@ -23,12 +23,20 @@ class MainActivity : AppCompatActivity() {
         var progressBar = findViewById<ProgressBar>(R.id.progressBar)
         var questionText = findViewById<TextView>(R.id.tvQuestion)
         var messageView = findViewById<TextView>(R.id.message)
+        var checkAnswerBtn = findViewById<Button>(R.id.checkAnswerBtn)
+        var answerTxv = findViewById<TextView>(R.id.answer)
+        var scoreTxv = findViewById<TextView>(R.id.score)
         progressBar.max = vm.questionCount
+        checkAnswerBtn.setOnClickListener{
+           vm.checkAnswer(answerTxv.text.toString().toInt())
+        }
         buttonNext.setOnClickListener{
             vm.nextClicked()
+            answerTxv.text = null
         }
         backButton.setOnClickListener{
             vm.backClicked()
+            answerTxv.text = null
         }
         val numberObserver= Observer<Int>{ number->
             textView.text = number.toString()
@@ -47,9 +55,17 @@ class MainActivity : AppCompatActivity() {
         val questionObserver = Observer<String> { question->
             questionText.text = question
         }
+        val score = Observer<Int> { score ->
+            scoreTxv.text = score.toString()
+        }
+        val checkAnswerEnableObserver = Observer<Boolean> {enable->
+            checkAnswerBtn.isEnabled = enable
+        }
         vm.questionLiveData.observe(this,questionObserver)
         vm.nextEnabledLiveData.observe(this,buttonEnabledObserver)
         vm.backEnabledLiveData.observe(this,backButtonEnableObserver)
         vm.numberLiveData.observe(this,numberObserver)
+        vm.scoreLiveData.observe(this,score)
+        vm.checkAnswerEnableLiveData.observe(this,checkAnswerEnableObserver)
     }
 }
