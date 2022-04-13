@@ -1,17 +1,31 @@
 package com.example.livedata
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
 import com.example.livedata1.QuestionRepository
 
-class MainViewModel: ViewModel() {
-    val questionLiveData = MutableLiveData<String>(QuestionRepository.questionList[0].question)
-    val questionCount = QuestionRepository.questionList.size-1
-    val scoreLiveData = MutableLiveData<Int>(0)
+class MainViewModel(app: Application):AndroidViewModel(app) {
+     var questionList :List<QuestionEntity>
+    val questionLiveData = MutableLiveData<String>()
     val numberLiveData= MutableLiveData<Int>(0)
-    var halfQuestionListSize = QuestionRepository.questionList.size/2
+//        MutableLiveData<String>(QuestionRepository.questionList[0].question)
+    init {
+        QuestionRepository.initDB(app.applicationContext)
+        questionList = QuestionRepository.getQuestions()
+        questionLiveData.value = questionList[0].questionText
+
+    }
+
+    fun nextQuestion(){
+        numberLiveData.value = numberLiveData.value?.plus(1)
+        numberLiveData.value?.let { number ->
+            questionLiveData.value = questionList[number].questionText
+        }
+    }
+    val questionCount = questionList.size -1
+//    val questionCount = QuestionRepository.questionList.size-1
+    val scoreLiveData = MutableLiveData<Int>(0)
+    var halfQuestionListSize =questionList.size/2
     var colorOfScore : LiveData<String> = Transformations.map(scoreLiveData){
         when(it){
             in 0 .. 5 -> "red"
@@ -52,7 +66,7 @@ class MainViewModel: ViewModel() {
 //        }
         numberLiveData.value = numberLiveData.value?.minus(1)
         numberLiveData.value?.let{number->
-                questionLiveData.value = QuestionRepository.questionList[number].question
+                questionLiveData.value =questionList[number].questionText
             }
 
         if (numberLiveData.value!! == 0) {
@@ -73,7 +87,7 @@ class MainViewModel: ViewModel() {
 //        }
         numberLiveData.value = numberLiveData.value?.plus(1)
         numberLiveData.value?.let{number->
-                 questionLiveData.value = QuestionRepository.questionList[number].question
+                 questionLiveData.value =questionList[number].questionText
              }
          if (numberLiveData.value!! == questionCount) {
              nextEnabledLiveData.value = false
@@ -84,7 +98,7 @@ class MainViewModel: ViewModel() {
 
     fun checkAnswer(answer:Int) {
         checkAnswerEnableLiveData.value = false
-        if(answer == QuestionRepository.questionList[numberLiveData.value!!].answer){
+        if(answer ==questionList[numberLiveData.value!!].answer){
             scoreLiveData.value =   scoreLiveData.value?.plus(5)
         }
         else{

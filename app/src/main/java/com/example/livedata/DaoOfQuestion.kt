@@ -1,7 +1,6 @@
 package com.example.livedata
 
 import androidx.room.*
-import com.example.livedata1.Question
 
 @Dao
 interface DaoOfQuestion {
