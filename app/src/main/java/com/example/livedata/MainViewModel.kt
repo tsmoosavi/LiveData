@@ -32,7 +32,8 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
         when(it){
             in 0 .. 5 -> "red"
             in 6 .. 10 -> "orange"
-            else -> "green"
+            in 11..15-> "green"
+            else -> "black"
         }
     }
 

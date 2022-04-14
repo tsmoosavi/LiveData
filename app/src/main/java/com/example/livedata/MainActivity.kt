@@ -29,13 +29,16 @@ class MainActivity : AppCompatActivity() {
         var scoreTxv = findViewById<TextView>(R.id.score)
         var questionCount= findViewById<TextView>(R.id.numberOfAllQuestion)
         var addQuestionBtn = findViewById<Button>(R.id.randomQuestion)
-        progressBar.max = vm.questionCount
+
+//        progressBar.max = vm.questionCount
+
+
         checkAnswerBtn.setOnClickListener{
            vm.checkAnswer(answerTxv.text.toString().toInt())
         }
         addQuestionBtn.setOnClickListener{
-
-            questionText.text =  vm.addRandomQuestion().questionText
+            vm.addRandomQuestion()
+           // questionText.text =  vm.addRandomQuestion().questionText
 
         }
         buttonNext.setOnClickListener{
@@ -58,7 +61,8 @@ class MainActivity : AppCompatActivity() {
             when(it){
                 "red" -> scoreTxv.setTextColor(getResources().getColor(R.color.red))
                 "orange" ->scoreTxv.setTextColor(getResources().getColor(R.color.orange))
-                else ->scoreTxv.setTextColor(getResources().getColor(R.color.green))
+                "green" ->scoreTxv.setTextColor(getResources().getColor(R.color.green))
+                else ->scoreTxv.setTextColor(getResources().getColor(R.color.black))
             }
         }
         val buttonEnabledObserver = Observer<Boolean> {  enabled->
@@ -86,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         vm.numberLiveData.observe(this,numberObserver)
         vm.scoreLiveData.observe(this,score)
         vm.checkAnswerEnableLiveData.observe(this,checkAnswerEnableObserver)
+//        progressBar.max = vm.questionCountLiveData.value!!
     }
 
 }
