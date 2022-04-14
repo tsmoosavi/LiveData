@@ -6,20 +6,21 @@ import com.example.livedata1.QuestionRepository
 
 class MainViewModel(app: Application):AndroidViewModel(app) {
      var questionList :List<QuestionEntity>
-    val questionLiveData = MutableLiveData<String>()
+    val questionTextLiveData = MutableLiveData<String>()
+    val questionLiveData = MutableLiveData<QuestionEntity>()
     val numberLiveData= MutableLiveData<Int>(0)
 //        MutableLiveData<String>(QuestionRepository.questionList[0].question)
     init {
         QuestionRepository.initDB(app.applicationContext)
         questionList = QuestionRepository.getQuestions()
-        questionLiveData.value = questionList[0].questionText
+        questionTextLiveData.value = questionList[0].questionText
 
     }
 
     fun nextQuestion(){
         numberLiveData.value = numberLiveData.value?.plus(1)
         numberLiveData.value?.let { number ->
-            questionLiveData.value = questionList[number].questionText
+            questionTextLiveData.value = questionList[number].questionText
         }
     }
     val questionCount = questionList.size -1
@@ -66,7 +67,7 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
 //        }
         numberLiveData.value = numberLiveData.value?.minus(1)
         numberLiveData.value?.let{number->
-                questionLiveData.value =questionList[number].questionText
+                questionTextLiveData.value =questionList[number].questionText
             }
 
         if (numberLiveData.value!! == 0) {
@@ -87,7 +88,7 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
 //        }
         numberLiveData.value = numberLiveData.value?.plus(1)
         numberLiveData.value?.let{number->
-                 questionLiveData.value =questionList[number].questionText
+                 questionTextLiveData.value =questionList[number].questionText
              }
          if (numberLiveData.value!! == questionCount) {
              nextEnabledLiveData.value = false
@@ -104,5 +105,12 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
         else{
             scoreLiveData.value =   scoreLiveData.value?.minus(2)
         }
+    }
+    fun randomQuestion(){
+        QuestionRepository.newRandomQuestion()
+    }
+    fun getChosenQuestion(number:Int):LiveData<QuestionEntity>{
+        questionLiveData.value =  QuestionRepository.getChosenQuestion(number)
+        return questionLiveData
     }
 }

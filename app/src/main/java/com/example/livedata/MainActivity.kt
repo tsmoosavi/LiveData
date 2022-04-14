@@ -68,11 +68,12 @@ class MainActivity : AppCompatActivity() {
         val checkAnswerEnableObserver = Observer<Boolean> {enable->
             checkAnswerBtn.isEnabled = enable
         }
-        vm.questionLiveData.observe(this,questionObserver)
+        vm.questionTextLiveData.observe(this,questionObserver)
         vm.nextEnabledLiveData.observe(this,buttonEnabledObserver)
         vm.backEnabledLiveData.observe(this,backButtonEnableObserver)
         vm.numberLiveData.observe(this,numberObserver)
         vm.scoreLiveData.observe(this,score)
         vm.checkAnswerEnableLiveData.observe(this,checkAnswerEnableObserver)
     }
+
 }
