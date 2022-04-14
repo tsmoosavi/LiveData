@@ -105,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/check_answer"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="60dp"
        app:layout_constraintBottom_toTopOf="@id/button1"
         app:layout_constraintEnd_toEndOf="@+id/tvNumber"
         app:layout_constraintStart_toStartOf="@+id/tvNumber"/>
@@ -133,5 +133,37 @@
         app:layout_constraintBottom_toBottomOf="@+id/scoreTV"
         app:layout_constraintEnd_toEndOf="@+id/message"
         app:layout_constraintTop_toTopOf="@+id/scoreTV" />
+
+    <TextView
+        android:id="@+id/numberOfAllQuestionTxv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="NumberOfAllQuestion"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/numberOfAllQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/numberOfAllQuestion"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/numberOfAllQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sdjfsfidj"
+        app:layout_constraintBottom_toTopOf="@id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toEndOf="@id/numberOfAllQuestionTxv" />
+    <Button
+        android:id="@+id/randomQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="add question"
+        app:layout_constraintBottom_toTopOf="@id/button1"
+        app:layout_constraintTop_toBottomOf="@id/checkAnswerBtn"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

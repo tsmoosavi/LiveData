@@ -26,10 +26,11 @@ object QuestionRepository {
         return db!!.daoOfQuestion().getAll()
     }
    fun newRandomQuestion(): QuestionEntity {
-        var a = Random(100).toString().toInt()
-        var b = Random(100).toString().toInt()
+        var a =(0 .. 100).random()//.toString().toInt()
+        var b =(0 .. 100).random()//.toString().toInt()
+//.toString().toInt()
         var result = a - b
-        var questionText = "result of" + a + "-" + b
+        var questionText = "result of " + a + " - " + b
         return QuestionEntity(0,questionText,result)
     }
 

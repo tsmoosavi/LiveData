@@ -2,6 +2,7 @@ package com.example.livedata
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.TestLooperManager
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -26,9 +27,16 @@ class MainActivity : AppCompatActivity() {
         var checkAnswerBtn = findViewById<Button>(R.id.checkAnswerBtn)
         var answerTxv = findViewById<TextView>(R.id.answer)
         var scoreTxv = findViewById<TextView>(R.id.score)
+        var questionCount= findViewById<TextView>(R.id.numberOfAllQuestion)
+        var addQuestionBtn = findViewById<Button>(R.id.randomQuestion)
         progressBar.max = vm.questionCount
         checkAnswerBtn.setOnClickListener{
            vm.checkAnswer(answerTxv.text.toString().toInt())
+        }
+        addQuestionBtn.setOnClickListener{
+
+            questionText.text =  vm.addRandomQuestion().questionText
+
         }
         buttonNext.setOnClickListener{
             vm.nextClicked()
@@ -68,6 +76,10 @@ class MainActivity : AppCompatActivity() {
         val checkAnswerEnableObserver = Observer<Boolean> {enable->
             checkAnswerBtn.isEnabled = enable
         }
+        vm.questionCountLiveData.observe(this) {number->
+            questionCount.text = number.toString()
+        }
+
         vm.questionTextLiveData.observe(this,questionObserver)
         vm.nextEnabledLiveData.observe(this,buttonEnabledObserver)
         vm.backEnabledLiveData.observe(this,backButtonEnableObserver)

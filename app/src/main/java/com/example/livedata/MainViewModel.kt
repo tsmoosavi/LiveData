@@ -8,12 +8,14 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
      var questionList :List<QuestionEntity>
     val questionTextLiveData = MutableLiveData<String>()
     val questionLiveData = MutableLiveData<QuestionEntity>()
+    var questionCountLiveData : LiveData<Int>
     val numberLiveData= MutableLiveData<Int>(0)
 //        MutableLiveData<String>(QuestionRepository.questionList[0].question)
     init {
         QuestionRepository.initDB(app.applicationContext)
         questionList = QuestionRepository.getQuestions()
         questionTextLiveData.value = questionList[0].questionText
+    questionCountLiveData = QuestionRepository.getNumberOfQuestion()
 
     }
 
@@ -90,7 +92,7 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
         numberLiveData.value?.let{number->
                  questionTextLiveData.value =questionList[number].questionText
              }
-         if (numberLiveData.value!! == questionCount) {
+         if (numberLiveData.value!! == questionCountLiveData.value?.minus(1)) {
              nextEnabledLiveData.value = false
          }
 
@@ -99,7 +101,7 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
 
     fun checkAnswer(answer:Int) {
         checkAnswerEnableLiveData.value = false
-        if(answer ==questionList[numberLiveData.value!!].answer){
+        if(answer == questionList[numberLiveData.value!!].answer){
             scoreLiveData.value =   scoreLiveData.value?.plus(5)
         }
         else{
@@ -112,5 +114,16 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
     fun getChosenQuestion(number:Int):LiveData<QuestionEntity>{
         questionLiveData.value =  QuestionRepository.getChosenQuestion(number)
         return questionLiveData
+    }
+    fun countQuestion():LiveData<Int>{
+        questionCountLiveData = QuestionRepository.getNumberOfQuestion()
+        return questionCountLiveData
+
+    }
+    fun addRandomQuestion():QuestionEntity{
+        QuestionRepository.addQuestion()
+        return QuestionRepository.newRandomQuestion()
+
+
     }
 }
