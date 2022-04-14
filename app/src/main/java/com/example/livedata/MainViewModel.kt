@@ -15,7 +15,7 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
         QuestionRepository.initDB(app.applicationContext)
         questionList = QuestionRepository.getQuestions()
         questionTextLiveData.value = questionList[0].questionText
-    questionCountLiveData = QuestionRepository.getNumberOfQuestion()
+        questionCountLiveData = QuestionRepository.getNumberOfQuestion()
 
     }
 
@@ -26,7 +26,6 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
         }
     }
     val questionCount = questionList.size -1
-//    val questionCount = QuestionRepository.questionList.size-1
     val scoreLiveData = MutableLiveData<Int>(0)
     var halfQuestionListSize =questionList.size/2
     var colorOfScore : LiveData<String> = Transformations.map(scoreLiveData){
