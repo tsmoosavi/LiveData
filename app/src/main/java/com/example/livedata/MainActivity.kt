@@ -7,81 +7,72 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.example.livedata.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
     val vm : MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         initViews()
     }
 
     private fun initViews() {
-        var textView = findViewById<TextView>(R.id.tvNumber)
-        var buttonNext = findViewById<Button>(R.id.button1)
-        var backButton = findViewById<Button>(R.id.backButton)
-        var progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        var questionText = findViewById<TextView>(R.id.tvQuestion)
-        var messageView = findViewById<TextView>(R.id.message)
-        var checkAnswerBtn = findViewById<Button>(R.id.checkAnswerBtn)
-        var answerTxv = findViewById<TextView>(R.id.answer)
-        var scoreTxv = findViewById<TextView>(R.id.score)
-        var questionCount= findViewById<TextView>(R.id.numberOfAllQuestion)
-        var addQuestionBtn = findViewById<Button>(R.id.randomQuestion)
-
 //        progressBar.max = vm.questionCount
 
-
-        checkAnswerBtn.setOnClickListener{
-           vm.checkAnswer(answerTxv.text.toString().toInt())
+       binding.checkAnswerBtn.setOnClickListener{
+           vm.checkAnswer(binding.answer.text.toString().toInt())
         }
-        addQuestionBtn.setOnClickListener{
+        binding.randomQuestion.setOnClickListener{
             vm.addRandomQuestion()
            // questionText.text =  vm.addRandomQuestion().questionText
 
         }
-        buttonNext.setOnClickListener{
+        binding.button1.setOnClickListener{
             vm.nextClicked()
-            answerTxv.text = null
+                binding.answer.text = null
         }
-        backButton.setOnClickListener{
+        binding.backButton.setOnClickListener{
             vm.backClicked()
-            answerTxv.text = null
+          binding.answer.text = null
         }
         val numberObserver= Observer<Int>{ number->
-            textView.text = number.toString()
-            progressBar.progress = number
+            binding.tvNumber.text = number.toString()
+            binding.progressBar.progress = number
         }
         // راه مختصر برای observe
         vm.message.observe(this) {
-            messageView.text = it
+        binding.message.text = it
         }
-        vm.colorOfScore.observe(this){
-            when(it){
-                "red" -> scoreTxv.setTextColor(getResources().getColor(R.color.red))
-                "orange" ->scoreTxv.setTextColor(getResources().getColor(R.color.orange))
-                "green" ->scoreTxv.setTextColor(getResources().getColor(R.color.green))
-                else ->scoreTxv.setTextColor(getResources().getColor(R.color.black))
-            }
-        }
+//        vm.colorOfScore.observe(this){
+//            when(it){
+//                "red" ->binding.score.setTextColor(getResources().getColor(R.color.red))
+//                "orange" ->binding.score.setTextColor(getResources().getColor(R.color.orange))
+//                "green" ->binding.score.setTextColor(getResources().getColor(R.color.green))
+//                else ->binding.score.setTextColor(getResources().getColor(R.color.black))
+//            }
+//        }
+
         val buttonEnabledObserver = Observer<Boolean> {  enabled->
-            buttonNext.isEnabled = enabled
+            binding.button1.isEnabled = enabled
         }
         val backButtonEnableObserver = Observer<Boolean> { enable ->
-            backButton.isEnabled = enable
+            binding.backButton.isEnabled = enable
         }
         val questionObserver = Observer<String> { question->
-            questionText.text = question
+          binding.tvQuestion.text = question
         }
         val score = Observer<Int> { score ->
-            scoreTxv.text = score.toString()
+            binding.scoreValue = score
         }
         val checkAnswerEnableObserver = Observer<Boolean> {enable->
-            checkAnswerBtn.isEnabled = enable
+          binding.checkAnswerBtn.isEnabled = enable
         }
         vm.questionCountLiveData.observe(this) {number->
-            questionCount.text = number.toString()
+            binding.questionCount = number
         }
 
         vm.questionTextLiveData.observe(this,questionObserver)

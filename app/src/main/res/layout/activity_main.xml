@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
          xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <variable
+            name="scoreValue"
+            type="Integer" />
+    <variable
+        name="questionCount"
+        type="Integer" />
+        <import type="android.view.View"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -132,7 +138,8 @@
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
+        android:text="@{scoreValue.toString()}"
+        android:textColor="@{scoreValue>=0 &amp;&amp; scoreValue&lt;6 ? @color/red : scoreValue>=6 &amp;&amp; scoreValue&lt;11 ? @color/orange : @color/green}"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/scoreTV"
         app:layout_constraintEnd_toEndOf="@+id/message"
@@ -152,12 +159,13 @@
 
     <TextView
         android:id="@+id/numberOfAllQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sdjfsfidj"
+        android:layout_width="0dp"
+        android:layout_height="14dp"
+        android:text="@{questionCount.toString()}"
+        android:visibility="@{questionCount>13 &amp;&amp; questionCount&lt;19 ? View.GONE : View.VISIBLE }"
         app:layout_constraintBottom_toTopOf="@id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintStart_toEndOf="@id/numberOfAllQuestionTxv" />
+        app:layout_constraintStart_toEndOf="@id/numberOfAllQuestionTxv" />
     <Button
         android:id="@+id/randomQuestion"
         android:layout_width="wrap_content"

@@ -28,14 +28,14 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
     val questionCount = questionList.size -1
     val scoreLiveData = MutableLiveData<Int>(0)
     var halfQuestionListSize =questionList.size/2
-    var colorOfScore : LiveData<String> = Transformations.map(scoreLiveData){
-        when(it){
-            in 0 .. 5 -> "red"
-            in 6 .. 10 -> "orange"
-            in 11..15-> "green"
-            else -> "black"
-        }
-    }
+//    var colorOfScore : LiveData<String> = Transformations.map(scoreLiveData){
+//        when(it){
+//            in 0 .. 5 -> "red"
+//            in 6 .. 10 -> "orange"
+//            in 11..15-> "green"
+//            else -> "black"
+//        }
+//    }
 
     val message :LiveData<String> = Transformations.map(numberLiveData) {
         when (it) {
