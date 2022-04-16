@@ -139,7 +139,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@{scoreValue.toString()}"
-        android:textColor="@{scoreValue>=0 &amp;&amp; scoreValue&lt;6 ? @color/red : scoreValue>=6 &amp;&amp; scoreValue&lt;11 ? @color/orange : @color/green}"
+        android:textColor="@{scoreValue&lt;6 ? @color/red : scoreValue>=6 &amp;&amp; scoreValue&lt;11 ? @color/orange : @color/green}"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/scoreTV"
         app:layout_constraintEnd_toEndOf="@+id/message"

@@ -101,7 +101,7 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
 
     fun checkAnswer(answer:Int) {
         checkAnswerEnableLiveData.value = false
-        if(answer == questionList[numberLiveData.value!!].answer){
+        if(answer == QuestionRepository.getChosenQuestion(numberLiveData.value!!).answer){
             scoreLiveData.value =   scoreLiveData.value?.plus(5)
         }
         else{
