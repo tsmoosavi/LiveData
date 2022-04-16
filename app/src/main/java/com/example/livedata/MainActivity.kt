@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding.randomQuestion.setOnClickListener{
             vm.addRandomQuestion()
             binding.progressBar.max = vm.questionCountLiveData.value!!
+            vm.nextEnabledLiveData.value = true
 
         }
         binding.button1.setOnClickListener{

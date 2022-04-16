@@ -123,7 +123,5 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
     fun addRandomQuestion():QuestionEntity{
         QuestionRepository.addQuestion()
         return QuestionRepository.newRandomQuestion()
-
-
     }
 }
