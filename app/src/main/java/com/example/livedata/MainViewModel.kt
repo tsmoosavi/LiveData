@@ -9,12 +9,12 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
     val questionTextLiveData = MutableLiveData<String>()
     val questionLiveData = MutableLiveData<QuestionEntity>()
     var questionCountLiveData : LiveData<Int>
-    val numberLiveData= MutableLiveData<Int>(0)
+    val numberLiveData= MutableLiveData<Int>(1)
 //        MutableLiveData<String>(QuestionRepository.questionList[0].question)
     init {
         QuestionRepository.initDB(app.applicationContext)
         questionList = QuestionRepository.getQuestions()
-        questionTextLiveData.value = questionList[0].questionText
+        questionTextLiveData.value = QuestionRepository.getChosenQuestion(1).questionText
         questionCountLiveData = QuestionRepository.getNumberOfQuestion()
 
     }
@@ -69,10 +69,10 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
 //        }
         numberLiveData.value = numberLiveData.value?.minus(1)
         numberLiveData.value?.let{number->
-                questionTextLiveData.value =questionList[number].questionText
+                questionTextLiveData.value = QuestionRepository.getChosenQuestion(number).questionText
             }
 
-        if (numberLiveData.value!! == 0) {
+        if (numberLiveData.value!! == 1) {
             backEnabledLiveData.value = false
         }
 
@@ -90,9 +90,9 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
 //        }
         numberLiveData.value = numberLiveData.value?.plus(1)
         numberLiveData.value?.let{number->
-                 questionTextLiveData.value =questionList[number].questionText
+                 questionTextLiveData.value = QuestionRepository.getChosenQuestion(number).questionText
              }
-         if (numberLiveData.value!! == questionCountLiveData.value?.minus(1)) {
+         if (numberLiveData.value!! == questionCountLiveData.value) {
              nextEnabledLiveData.value = false
          }
 

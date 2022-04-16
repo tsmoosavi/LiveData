@@ -159,8 +159,8 @@
 
     <TextView
         android:id="@+id/numberOfAllQuestion"
-        android:layout_width="0dp"
-        android:layout_height="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@{questionCount.toString()}"
         android:visibility="@{questionCount>13 &amp;&amp; questionCount&lt;19 ? View.GONE : View.VISIBLE }"
         app:layout_constraintBottom_toTopOf="@id/progressBar"

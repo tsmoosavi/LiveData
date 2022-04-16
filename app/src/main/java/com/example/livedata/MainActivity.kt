@@ -21,14 +21,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-//        progressBar.max = vm.questionCount
 
        binding.checkAnswerBtn.setOnClickListener{
            vm.checkAnswer(binding.answer.text.toString().toInt())
         }
         binding.randomQuestion.setOnClickListener{
             vm.addRandomQuestion()
-           // questionText.text =  vm.addRandomQuestion().questionText
+            binding.progressBar.max = vm.questionCountLiveData.value!!
 
         }
         binding.button1.setOnClickListener{
@@ -73,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
         vm.questionCountLiveData.observe(this) {number->
             binding.questionCount = number
+            binding.progressBar.max = number
         }
 
         vm.questionTextLiveData.observe(this,questionObserver)
