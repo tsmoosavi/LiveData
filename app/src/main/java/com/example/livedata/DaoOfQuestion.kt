@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface DaoOfQuestion {
     @Query("SELECT * fROM QuestionEntity")
-    fun getAll(): List<QuestionEntity>
+    fun getAll():LiveData<List<QuestionEntity>>
 
     @Query("SELECT count(number) fROM QuestionEntity")
     fun getNumberQuestions(): LiveData<Int>

@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import com.example.livedata1.QuestionRepository
 
 class MainViewModel(app: Application):AndroidViewModel(app) {
-     var questionList :List<QuestionEntity>
+     var questionList :LiveData<List<QuestionEntity>>
     val questionTextLiveData = MutableLiveData<String>()
     val questionLiveData = MutableLiveData<QuestionEntity>()
     var questionCountLiveData : LiveData<Int>
@@ -20,7 +20,7 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
     }
 
     val scoreLiveData = MutableLiveData<Int>(0)
-    var halfQuestionListSize =questionList.size/2
+    var halfQuestionListSize = questionList.value?.size?.div(2)
 //    var colorOfScore : LiveData<String> = Transformations.map(scoreLiveData){
 //        when(it){
 //            in 0 .. 5 -> "red"
@@ -30,18 +30,18 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
 //        }
 //    }
 
-    val message :LiveData<String> = Transformations.map(numberLiveData) {
-        when (it) {
-            in 0..halfQuestionListSize -> "Hurry up"
-            else -> "You almost done"
-            //راه استاد:
-//          number->
-//          if(number<=questionCount/2 )321
-//              "go ahead"
-//          else
-//              "you are reaching the end"
-        }
-    }
+//    val message :LiveData<String> = Transformations.map(numberLiveData) {
+//        when (it) {
+//            in 0..questionCountLiveData.value!!.div(2) -> "Hurry up"
+//            else -> "You almost done"
+//            //راه استاد:
+////          number->
+////          if(number<=questionCount/2 )321
+////              "go ahead"
+////          else
+////              "you are reaching the end"
+//        }
+//    }
 
     var nextEnabledLiveData = MutableLiveData<Boolean>(true)
 

@@ -22,7 +22,7 @@ object QuestionRepository {
             QuestionEntity(2," result of  5 - 1 " , 4) ,
             QuestionEntity(3," result of 100 * 21",2100))
     }
-   fun getQuestions():List<QuestionEntity>{
+   fun getQuestions():LiveData<List<QuestionEntity>>{
         return db!!.daoOfQuestion().getAll()
     }
    fun newRandomQuestion(): QuestionEntity {
