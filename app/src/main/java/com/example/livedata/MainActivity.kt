@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.progress = number
         }
         // راه مختصر برای observe
-        vm.message.observe(this) {
-        binding.message.text = it
-        }
+//        vm.message.observe(this) {
+//        binding.message.text = it
+//        }
 //        vm.colorOfScore.observe(this){
 //            when(it){
 //                "red" ->binding.score.setTextColor(getResources().getColor(R.color.red))
@@ -69,6 +69,13 @@ class MainActivity : AppCompatActivity() {
         vm.questionCountLiveData.observe(this) {number->
             binding.questionCount = number
             binding.progressBar.max = number
+        }
+        vm.questionList.observe(this){
+            if (it != null){
+                var adapter = QuestionRecyclerAdapter()
+                binding.questionRecyclerView.adapter = adapter
+                adapter.submitList(it)
+            }
         }
 
         vm.questionTextLiveData.observe(this,questionObserver)
