@@ -19,13 +19,6 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
 
     }
 
-    fun nextQuestion(){
-        numberLiveData.value = numberLiveData.value?.plus(1)
-        numberLiveData.value?.let { number ->
-            questionTextLiveData.value = questionList[number].questionText
-        }
-    }
-    val questionCount = questionList.size -1
     val scoreLiveData = MutableLiveData<Int>(0)
     var halfQuestionListSize =questionList.size/2
 //    var colorOfScore : LiveData<String> = Transformations.map(scoreLiveData){
@@ -59,14 +52,7 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
     fun backClicked(){
         checkAnswerEnableLiveData.value = true
         nextEnabledLiveData.value =true
-//        if (numberLiveData.value!! > 0){
-//            numberLiveData.value = numberLiveData.value?.minus(1)
-//        }
-//        if (numberLiveData.value!! >= 0){
-//            numberLiveData.value?.let{number->
-//                questionLiveData.value = QuestionRepository.questionList[number]
-//            }
-//        }
+
         numberLiveData.value = numberLiveData.value?.minus(1)
         numberLiveData.value?.let{number->
                 questionTextLiveData.value = QuestionRepository.getChosenQuestion(number).questionText
@@ -80,14 +66,6 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
     fun nextClicked(){
         checkAnswerEnableLiveData.value = true
         backEnabledLiveData.value = true
-//        if (numberLiveData.value!! < questionCount){
-//            numberLiveData.value = numberLiveData.value?.plus(1)
-//        }
-//         if (numberLiveData.value!! <= questionCount){
-//             numberLiveData.value?.let{number->
-//                 questionLiveData.value = QuestionRepository.questionList[number]
-//             }
-//        }
         numberLiveData.value = numberLiveData.value?.plus(1)
         numberLiveData.value?.let{number->
                  questionTextLiveData.value = QuestionRepository.getChosenQuestion(number).questionText

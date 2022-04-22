@@ -2,10 +2,6 @@ package com.example.livedata
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.TestLooperManager
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -81,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         vm.numberLiveData.observe(this,numberObserver)
         vm.scoreLiveData.observe(this,score)
         vm.checkAnswerEnableLiveData.observe(this,checkAnswerEnableObserver)
-//        progressBar.max = vm.questionCountLiveData.value!!
+
     }
 
 }
