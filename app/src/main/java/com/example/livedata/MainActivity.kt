@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.progress = number
         }
         // راه مختصر برای observe
-//        vm.message.observe(this) {
-//        binding.message.text = it
-//        }
+        vm.message.observe(this) {
+        binding.message.text = it
+        }
 //        vm.colorOfScore.observe(this){
 //            when(it){
 //                "red" ->binding.score.setTextColor(getResources().getColor(R.color.red))

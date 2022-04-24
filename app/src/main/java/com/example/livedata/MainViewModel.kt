@@ -5,12 +5,14 @@ import androidx.lifecycle.*
 import com.example.livedata1.QuestionRepository
 
 class MainViewModel(app: Application):AndroidViewModel(app) {
-     var questionList :LiveData<List<QuestionEntity>>
+    var questionList: LiveData<List<QuestionEntity>>
     val questionTextLiveData = MutableLiveData<String>()
     val questionLiveData = MutableLiveData<QuestionEntity>()
-    var questionCountLiveData : LiveData<Int>
-    val numberLiveData= MutableLiveData<Int>(1)
-//        MutableLiveData<String>(QuestionRepository.questionList[0].question)
+    var questionCountLiveData: LiveData<Int>
+    val numberLiveData = MutableLiveData<Int>(1)
+    var halfQuestionListSize = 0
+
+    //        MutableLiveData<String>(QuestionRepository.questionList[0].question)
     init {
         QuestionRepository.initDB(app.applicationContext)
         questionList = QuestionRepository.getQuestions()
@@ -20,7 +22,8 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
     }
 
     val scoreLiveData = MutableLiveData<Int>(0)
-    var halfQuestionListSize = questionList.value?.size?.div(2)
+//    var halfQuestionListSize = questionList.value?.size?.div(2)
+
 //    var colorOfScore : LiveData<String> = Transformations.map(scoreLiveData){
 //        when(it){
 //            in 0 .. 5 -> "red"
@@ -30,18 +33,23 @@ class MainViewModel(app: Application):AndroidViewModel(app) {
 //        }
 //    }
 
-//    val message :LiveData<String> = Transformations.map(numberLiveData) {
-//        when (it) {
-//            in 0..questionCountLiveData.value!!.div(2) -> "Hurry up"
-//            else -> "You almost done"
-//            //راه استاد:
-////          number->
-////          if(number<=questionCount/2 )321
-////              "go ahead"
-////          else
-////              "you are reaching the end"
-//        }
-//    }
+    val message: LiveData<String> = Transformations.map(numberLiveData) {
+        questionCountLiveData.value?.let{number->
+            halfQuestionListSize = questionCountLiveData.value!!.div(2)
+            when (it) {
+                in 0..halfQuestionListSize -> "Hurry up"
+                else -> "You almost done"
+                //            راه استاد:
+//          number->
+//          if(number<=questionCount/2 ) ->
+//              "go ahead"
+//          else
+//              "you are reaching the end"
+            }
+        }
+
+    }
+
 
     var nextEnabledLiveData = MutableLiveData<Boolean>(true)
 
