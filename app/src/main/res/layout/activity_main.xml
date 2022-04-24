@@ -10,6 +10,7 @@
         name="questionCount"
         type="Integer" />
         <import type="android.view.View"/>
+
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -31,11 +32,9 @@
         android:id="@+id/tvNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:text="0"
         android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -44,7 +43,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
-        app:layout_constraintTop_toBottomOf="@+id/checkAnswerBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/randomQuestion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -62,12 +63,12 @@
 
     <TextView
         android:id="@+id/tvQuestion"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNumber"
+        app:layout_constraintEnd_toStartOf="@id/answer"/>
 
 
     <Button
@@ -75,68 +76,57 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BACK"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button1"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/button1" />
 
     <TextView
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="5dp"
         android:text="TextView"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/button1"
+        app:layout_constraintBottom_toTopOf="@+id/checkAnswerBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuestion"
-        app:layout_constraintVertical_bias="0.114" />
+        app:layout_constraintTop_toBottomOf="@+id/scoreTV"
+        />
 
     <EditText
         android:id="@+id/answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
         android:hint="@string/user_answer"
         android:inputType="textPersonName"
         android:textAlignment="center"
+        android:layout_marginStart="100dp"
         app:layout_constraintBottom_toBottomOf="@id/tvQuestion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@id/tvQuestion"
-        app:layout_constraintTop_toBottomOf="@id/tvNumber"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toBottomOf="@id/tvNumber" />
 
     <Button
         android:id="@+id/checkAnswerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/check_answer"
-        app:layout_constraintEnd_toEndOf="@+id/tvNumber"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/tvNumber"
-        tools:layout_editor_absoluteY="358dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message"/>
 
     <TextView
         android:id="@+id/scoreTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
         android:text="Score :"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/message"
         app:layout_constraintEnd_toEndOf="@id/score"
-        app:layout_constraintHorizontal_bias="0.792"
-        app:layout_constraintStart_toStartOf="@+id/message"
-        app:layout_constraintTop_toBottomOf="@id/tvQuestion"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvQuestion" />
 
     <TextView
         android:id="@+id/score"
@@ -146,7 +136,8 @@
         android:textColor="@{scoreValue&lt;6 ? @color/red : scoreValue>=6 &amp;&amp; scoreValue&lt;11 ? @color/orange : @color/green}"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/scoreTV"
-        app:layout_constraintEnd_toEndOf="@+id/message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/scoreTV"
         app:layout_constraintTop_toTopOf="@+id/scoreTV" />
 
     <TextView
@@ -178,20 +169,22 @@
         android:text="add question"
         app:layout_constraintBottom_toTopOf="@id/button1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkAnswerBtn"
-        app:layout_constraintVertical_bias="0.0" />
+       />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/questionRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/backButton" />
+        app:layout_constraintTop_toBottomOf="@id/backButton"
+     />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
